@@ -212,7 +212,7 @@ import Home from "../page/Home";
 import About from "../page/About";
 import Services from "../page/Services";
 import Contact from "../page/Contact";
-import Info from "../page/Info";
+import Info from "../page/info";
 import Detail from "../page/Detail";
 import NotFound from "../page/notFount"; // បើឈ្មោះ File ពិតប្រាកដគឺ NotFound គួរកែឱ្យត្រូវគ្នា
 import Admin from "../page/Admin";
