@@ -1,142 +1,267 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { auth, db } from "../data/firebase";
-
-import { createUserWithEmailAndPassword } from "firebase/auth";
-
+import { 
+  createUserWithEmailAndPassword,
+  updateProfile
+} from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { 
+  User, 
+  Phone, 
+  Mail, 
+  Lock, 
+  Eye, 
+  EyeOff, 
+  CheckCircle, 
+  XCircle,
+  Coffee,
+  ArrowLeft,
+  UserPlus
+} from "lucide-react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Signup = () => {
-
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // ✅ Form States
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
 
+  const [agreed, setAgreed] = useState(false); // ⭐ FIX CHECKBOX
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState(0);
+  const [touched, setTouched] = useState({});
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+  }, []);
+
+  // ✅ Password Strength
+  const checkPasswordStrength = (pass) => {
+    let strength = 0;
+    if (pass.length >= 6) strength += 25;
+    if (pass.length >= 8) strength += 25;
+    if (/[A-Z]/.test(pass)) strength += 25;
+    if (/[0-9]/.test(pass)) strength += 25;
+    if (/[^A-Za-z0-9]/.test(pass)) strength += 25;
+    return Math.min(strength, 100);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    if (name === "password") {
+      setPasswordStrength(checkPasswordStrength(value));
+    }
+
+    if (error) setError("");
+  };
+
+  const handleBlur = (field) => {
+    setTouched(prev => ({
+      ...prev,
+      [field]: true
+    }));
+  };
+
+  const validateEmail = (email) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const validatePhone = (phone) =>
+    /^[0-9]{9,10}$/.test(phone);
+
+  const isFormValid = () => {
+    return (
+      formData.name.length >= 2 &&
+      validatePhone(formData.phone) &&
+      validateEmail(formData.email) &&
+      formData.password.length >= 6 &&
+      formData.confirmPassword === formData.password &&
+      agreed // ⭐ FIX
+    );
+  };
 
   const handleSignup = async (e) => {
-
     e.preventDefault();
 
-    if(password.length < 6){
-      return setError("Password must be at least 6 characters");
+    if (!isFormValid()) {
+      setError("Please fill in all fields correctly");
+      return;
     }
 
     setLoading(true);
     setError("");
 
     try {
-
-      // ✅ Create Firebase Auth user
-      const userCredential =
-        await createUserWithEmailAndPassword(auth, email, password);
+      // ✅ Create Auth User
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
 
       const user = userCredential.user;
 
-      // ✅ Create Firestore user document
-      await setDoc(doc(db, "users", user.uid), {
-        name,
-        phone,
-        email,
-        role: "user",
-        createdAt: serverTimestamp()
+      // ⭐ ADD DISPLAY NAME
+      await updateProfile(user, {
+        displayName: formData.name,
       });
 
-      // 🔥 Auto Login → go dashboard
-      navigate("/user/dashboard");
+      // ✅ Firestore user
+      await setDoc(doc(db, "users", user.uid), {
+        name: formData.name,
+        phone: formData.phone,
+        email: user.email,
+        role: "user",
+        createdAt: serverTimestamp(),
+        lastLogin: serverTimestamp(),
+        isActive: true,
+      });
+
+      // ✅ Redirect
+      navigate("/UserDashboard");
 
     } catch (err) {
+      console.error("Signup error:", err);
 
-      if(err.code === "auth/email-already-in-use"){
-        setError("Email already in use");
-      }else{
-        setError("Signup failed. Try again.");
+      switch(err.code) {
+        case "auth/email-already-in-use":
+          setError("This email is already in use");
+          break;
+        case "auth/invalid-email":
+          setError("Invalid email format");
+          break;
+        case "auth/weak-password":
+          setError("Password is too weak");
+          break;
+        default:
+          setError("Signup failed. Please try again.");
       }
-
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-amber-100 to-gray-100 flex items-center justify-center p-4">
 
-      <form
-        onSubmit={handleSignup}
-        className="bg-white p-8 rounded-2xl shadow-xl w-96"
+      {/* Back Button */}
+      <button
+        onClick={() => navigate("/")}
+        className="absolute top-6 left-6 flex items-center gap-2 text-gray-600 hover:text-amber-700​ mt-20"
       >
+        <ArrowLeft size={20} />
+        Back to Home
+      </button>
 
-        <h1 className="text-3xl font-bold mb-6 text-center">
-          Create Account
-        </h1>
+      {/* Card */}
+      <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8">
+
+        <div className="text-center mb-8">
+          <Coffee size={50} className="mx-auto text-amber-700" />
+          <h1 className="text-3xl font-bold text-amber-800 mt-4">
+            Create Account
+          </h1>
+        </div>
 
         {error && (
-          <div className="bg-red-100 text-red-600 p-2 mb-4 rounded">
+          <div className="bg-red-100 text-red-700 p-3 rounded-lg mb-4 flex gap-2">
+            <XCircle size={18}/>
             {error}
           </div>
         )}
 
-        <input
-          type="text"
-          placeholder="Full Name"
-          className="w-full p-3 border rounded mb-4"
-          value={name}
-          onChange={(e)=>setName(e.target.value)}
-          required
-        />
+        <form onSubmit={handleSignup} className="space-y-4">
 
-        <input
-          type="text"
-          placeholder="Phone Number"
-          className="w-full p-3 border rounded mb-4"
-          value={phone}
-          onChange={(e)=>setPhone(e.target.value)}
-          required
-        />
+          <input
+            name="name"
+            placeholder="Full Name"
+            className="w-full border p-3 rounded-xl"
+            onChange={handleChange}
+          />
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full p-3 border rounded mb-4"
-          value={email}
-          onChange={(e)=>setEmail(e.target.value)}
-          required
-        />
+          <input
+            name="phone"
+            placeholder="Phone"
+            className="w-full border p-3 rounded-xl"
+            onChange={handleChange}
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full p-3 border rounded mb-6"
-          value={password}
-          onChange={(e)=>setPassword(e.target.value)}
-          required
-        />
+          <input
+            name="email"
+            placeholder="Email"
+            className="w-full border p-3 rounded-xl"
+            onChange={handleChange}
+          />
 
-        <button
-          className="w-full bg-green-600 text-white p-3 rounded hover:bg-green-700"
-          disabled={loading}
-        >
-          {loading ? "Creating..." : "Sign Up"}
-        </button>
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="Password"
+            className="w-full border p-3 rounded-xl"
+            onChange={handleChange}
+          />
 
-        {/* Go Login */}
-        <p className="text-center mt-4">
-          Already have an account?{" "}
-          <span
-            className="text-blue-600 cursor-pointer"
-            onClick={()=>navigate("/admin")}
+          <input
+            type={showConfirmPassword ? "text" : "password"}
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            className="w-full border p-3 rounded-xl"
+            onChange={handleChange}
+          />
+
+          {/* ✅ CHECKBOX FIX */}
+          <label className="flex gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={(e) => setAgreed(e.target.checked)}
+            />
+            I agree to Terms & Privacy
+          </label>
+
+          <button
+            disabled={loading || !isFormValid()}
+            className={`w-full py-3 rounded-xl text-white font-bold ${
+              loading || !isFormValid()
+                ? "bg-gray-400"
+                : "bg-amber-700 hover:bg-amber-800"
+            }`}
           >
-            Login
-          </span>
-        </p>
+            {loading ? "Creating Account..." : "SIGN UP"}
+          </button>
 
-      </form>
+          {/* ✅ LOGIN ROUTE FIX */}
+          <p className="text-center">
+            Already have account?{" "}
+            <span
+              className="text-amber-700 cursor-pointer"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </span>
+          </p>
 
+        </form>
+      </div>
     </div>
   );
 };

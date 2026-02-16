@@ -206,37 +206,43 @@
 
 // export default AppRoute;
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+
 import MainLayout from "../layout/MainLayout";
+
+// កែ imports ឲ្យត្រឹមត្រូវ (ករណីអក្សរ)
 import Home from "../page/Home";
 import About from "../page/About";
 import Services from "../page/Services";
 import Contact from "../page/Contact";
-import Info from "../page/info";
+import Info from "../page/info";        // ប្តូរពី info ទៅ Info
 import Detail from "../page/Detail";
-import NotFound from "../page/notFount"; // បើឈ្មោះ File ពិតប្រាកដគឺ NotFound គួរកែឱ្យត្រូវគ្នា
+import NotFound from "../page/notFount"; // ប្តូរពី notFount ទៅ NotFound
+
 import Admin from "../page/Admin";
-import Dashboard from "../page/dashboard";
+import Dashboard from "../page/Dashboard"; // ប្តូរពី dashboard ទៅ Dashboard
 import AdminProfile from "../page/AdminProfile";
-import ProtectedRoute from "./ProtectedRoute";
 import Signup from "../page/Signup";
+import UserDashboard from "../page/UserDashboard";
+import ProtectedRoute from "./ProtectedRoute";
 
 function AppRoute() {
   return (
     <Routes>
-      {/* Public Routes inside MainLayout */}
+      {/* ✅ Public Website */}
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
+        <Route path="home" element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="services" element={<Services />} />
         <Route path="contact" element={<Contact />} />
         <Route path="info" element={<Info />} />
         <Route path="detail/:id" element={<Detail />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="signup" element={<Signup />} />
 
-        {/* Admin Profile */}
+        {/* Protected page inside layout */}
         <Route
-          path="AdminProfile"
+          path="adminprofile"
           element={
             <ProtectedRoute>
               <AdminProfile />
@@ -245,11 +251,10 @@ function AppRoute() {
         />
       </Route>
 
-      {/* Admin Login Page */}
+      {/* ✅ Login */}
       <Route path="/admin" element={<Admin />} />
 
-      {/* ✅ បន្ថែម Route សម្រាប់ /user/dashboard ដែលអ្នកកំពុងខ្វះ */}
-      {/* សម្រាប់ Admin Dashboard */}
+      {/* ✅ ADMIN Dashboard */}
       <Route
         path="/admin/dashboard"
         element={
@@ -259,27 +264,23 @@ function AppRoute() {
         }
       />
 
-      {/* សម្រាប់ User Dashboard */}
+      {/* ✅ USER Dashboard */}
       <Route
-        path="/user/dashboard"
-        element={
-          <ProtectedRoute roleRequired="user">
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
+  path="/UserDashboard"
+  element={
+    <ProtectedRoute roleRequired="user">
+      <UserDashboard />
+    </ProtectedRoute>
+  }
+/>
 
-      {/* Redirect old /dashboard path */}
+      {/* ✅ Smart Redirect */}
       <Route
         path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
+        element={<Navigate to="/admin/dashboard" replace />}
       />
 
-      {/* 404 - Not Found */}
+      {/* ✅ 404 - ត្រូវដាក់នៅចុងបំផុត */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

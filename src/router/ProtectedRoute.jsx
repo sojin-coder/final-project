@@ -1,136 +1,136 @@
-// // src/router/ProtectedRoute.jsx
-// import { useEffect, useState } from "react";
-// import { Navigate } from "react-router-dom";
-// import { auth } from "../data/firebase";
-// import { onAuthStateChanged } from "firebase/auth";
-
-// const ProtectedRoute = ({ children }) => {
-//   const [user, setUser] = useState(null);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-//       console.log("Auth state changed:", currentUser?.email);
-//       setUser(currentUser);
-//       setLoading(false);
-//     });
-
-//     return () => unsubscribe();
-//   }, []);
-
-//   if (loading) {
-//     return (
-//       <div className="min-h-screen flex items-center justify-center">
-//         <div className="text-center">
-//           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-//           <p className="mt-4 text-gray-600">កំពុងពិនិត្យការចូលប្រើ...</p>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   if (!user) {
-//     return <Navigate to="/admin" replace />;
-//   }
-
-//   return children;
-// };
-
-// export default ProtectedRoute;
-
-// import { Navigate } from "react-router-dom";
-// import { auth } from "../data/firebase";
-// import { useEffect, useState } from "react";
-// import { doc, getDoc } from "firebase/firestore";
-// import { db } from "../data/firebase";
-
-// const ProtectedRoute = ({ children, roleRequired }) => {
-
-//   const [allowed, setAllowed] = useState(null);
-
-//   useEffect(() => {
-
-//     const checkRole = async () => {
-
-//       const user = auth.currentUser;
-
-//       if (!user) {
-//         setAllowed(false);
-//         return;
-//       }
-
-//       const snap =
-//         await getDoc(doc(db, "users", user.uid));
-
-//       if (!snap.exists()) {
-//         setAllowed(false);
-//         return;
-//       }
-
-//       const role = snap.data().role;
-
-//       setAllowed(role === roleRequired);
-//     };
-
-//     checkRole();
-
-//   }, [roleRequired]);
-
-
-//   if (allowed === null) return <h1>Loading...</h1>;
-
-//   return allowed
-//     ? children
-//     : <Navigate to="/admin" />;
-// };
-
-// export default ProtectedRoute;
-import { Navigate } from "react-router-dom";
+// src/router/ProtectedRoute.jsx
+import React, { useEffect, useState } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import { auth, db } from "../data/firebase";
-import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+
+// បញ្ជី Admin ដែលអនុញ្ញាត (តែ 3 នាក់ប៉ុណ្ណោះ)
+const ALLOWED_ADMIN_EMAILS = [
+  "raksa@gmail.com",
+  "jing@gmail.com", 
+  "sophoeurs668@gmail.com"
+];
 
 const ProtectedRoute = ({ children, roleRequired }) => {
-  const [allowed, setAllowed] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [authState, setAuthState] = useState({
+    isLoading: true,
+    isAuthenticated: false,
+    user: null,
+    userRole: null
+  });
+  const location = useLocation();
 
   useEffect(() => {
-    // ប្រើ onAuthStateChanged ដើម្បីចាំមើល User ឱ្យច្បាស់
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        setAllowed(false);
-        setLoading(false);
-        return;
-      }
+    let mounted = true;
 
-      try {
-        const snap = await getDoc(doc(db, "users", user.uid));
-        if (snap.exists()) {
-          const role = snap.data().role;
-          // បើមិនបានកំណត់ roleRequired ឱ្យចូលទាំងអស់ (Admin/User)
-          // បើមានកំណត់ ត្រូវឆែកឱ្យត្រូវគ្នា
-          if (!roleRequired || role === roleRequired) {
-            setAllowed(true);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!mounted) return;
+
+      if (user) {
+        console.log("✅ User logged in:", user.email);
+        
+        try {
+          // ពិនិត្យថាតើអ៊ីមែលនេះស្ថិតក្នុងបញ្ជី Admin ដែរឬទេ?
+          const isAdmin = ALLOWED_ADMIN_EMAILS.includes(user.email);
+          
+          let userRole = "user"; // Default role
+          
+          if (isAdmin) {
+            userRole = "admin";
+            console.log("👑 Admin access granted for:", user.email);
           } else {
-            setAllowed(false);
+            console.log("❌ Not an admin:", user.email);
           }
-        } else {
-          setAllowed(false);
+          
+          // ទាញយកព័ត៌មានពី Firestore (បើមាន)
+          try {
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if (userDoc.exists()) {
+              // ប្រើ Role ពី Firestore ប្រសិនបើមាន
+              userRole = userDoc.data().role || userRole;
+            }
+          } catch (firestoreError) {
+            console.log("Firestore not available, using email-based role");
+          }
+
+          // រក្សាទុកព័ត៌មានក្នុង localStorage
+          localStorage.setItem("user", JSON.stringify({
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            role: userRole,
+            isAdmin: isAdmin
+          }));
+
+          setAuthState({
+            isLoading: false,
+            isAuthenticated: true,
+            user: user,
+            userRole: userRole
+          });
+        } catch (error) {
+          console.error("Error in auth process:", error);
+          setAuthState({
+            isLoading: false,
+            isAuthenticated: true,
+            user: user,
+            userRole: "user"
+          });
         }
-      } catch (error) {
-        console.error("Role check error:", error);
-        setAllowed(false);
+      } else {
+        console.log("❌ No user logged in");
+        localStorage.removeItem("user");
+        setAuthState({
+          isLoading: false,
+          isAuthenticated: false,
+          user: null,
+          userRole: null
+        });
       }
-      setLoading(false);
     });
 
-    return () => unsubscribe();
-  }, [roleRequired]);
+    return () => {
+      mounted = false;
+      unsubscribe();
+    };
+  }, []);
 
-  if (loading) return <h1>Loading...</h1>;
+  // Loading State
+  if (authState.isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 to-gray-100">
+        <div className="text-center bg-white p-12 rounded-3xl shadow-2xl">
+          <div className="relative">
+            <div className="w-24 h-24 mx-auto mb-6 relative">
+              <div className="absolute inset-0 bg-amber-700 rounded-full opacity-20 animate-ping"></div>
+              <div className="relative bg-amber-700 rounded-full w-24 h-24 flex items-center justify-center">
+                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-amber-700 rounded-full animate-pulse"></div>
+                </div>
+              </div>
+            </div>
+            <p className="text-gray-600 mt-6 text-lg">Verifying access...</p>
+            <p className="text-gray-400 text-sm mt-2">Please wait a moment</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-  return allowed ? children : <Navigate to="/admin" replace />;
+  // បើមិនទាន់ចូលប្រព័ន្ធ
+  if (!authState.isAuthenticated) {
+    return <Navigate to="/admin" state={{ from: location }} replace />;
+  }
+
+  // ពិនិត្យ Role (បើមាន)
+  if (roleRequired === "admin" && authState.userRole !== "admin") {
+    console.log(`⛔ Access denied. User role: ${authState.userRole}, Required: ${roleRequired}`);
+    return <Navigate to="/unauthorized" replace />;
+  }
+
+  // ចូលប្រព័ន្ធរួចរាល់
+  return children;
 };
 
 export default ProtectedRoute;

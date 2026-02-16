@@ -1,6 +1,8 @@
 // src/pages/About.jsx
-import React from "react";
+import React, { useEffect } from "react";
 import Timeline from "../components/Timeline";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import {
   Eye,
   Target,
@@ -8,405 +10,267 @@ import {
   ShieldCheck,
   UserRound,
   Globe,
-  Quote,
-  Star,
   Leaf,
   HandHeart,
   Handshake,
+  Coffee,
+  CupSoda,
+  Bean,
+  Store,
+  Award,
+  Clock,
+  Users,
+  Sparkles,
 } from "lucide-react";
 
 function About() {
+  // Initialize AOS
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100,
+      easing: 'ease-in-out',
+    });
+  }, []);
+
+  // Data for values section
+  const values = [
+    {
+      icon: <Leaf className="text-green-600" size={35} />,
+      title: "Sustainability",
+      description: "We source 100% ethically grown beans and use eco-friendly packaging to minimize our environmental impact.",
+      color: "green",
+    },
+    {
+      icon: <HandHeart className="text-red-600" size={35} />,
+      title: "Our Mission",
+      description: "Every cup is crafted with precision using freshly roasted beans and artisanal brewing techniques.",
+      color: "red",
+    },
+    {
+      icon: <Handshake className="text-blue-600" size={35} />,
+      title: "Community Focus",
+      description: "We support local farmers and regularly host community events in our space.",
+      color: "blue",
+    },
+  ];
+
+  // Data for coffee process
+  const coffeeProcess = [
+    {
+      icon: <Coffee size={40} />,
+      title: "Love for Coffee",
+      description: "Every cup is brewed with passion and care to deliver the perfect aroma and taste.",
+    },
+    {
+      icon: <CupSoda size={40} />,
+      title: "Customer First",
+      description: "We focus on friendly service and creating a cozy space for every customer who walks in.",
+    },
+    {
+      icon: <Bean size={40} />,
+      title: "Premium Quality Beans",
+      description: "We carefully select high-quality beans from trusted farmers to ensure rich flavor in every sip.",
+    },
+    {
+      icon: <Store size={40} />,
+      title: "Community & Culture",
+      description: "Our café brings people together, supporting local culture and creating memorable moments.",
+    },
+  ];
+
+  // Data for achievements
+  const achievements = [
+    {
+      icon: <Award size={30} />,
+      number: "5+",
+      label: "Years of Excellence",
+    },
+    {
+      icon: <Users size={30} />,
+      number: "10,000+",
+      label: "Happy Customers",
+    },
+    {
+      icon: <Coffee size={30} />,
+      number: "50+",
+      label: "Coffee Varieties",
+    },
+    {
+      icon: <Clock size={30} />,
+      number: "24/7",
+      label: "Service",
+    },
+  ];
+
   return (
-    <div className="mt-5">
+    <div className="mt-[-40px]">
+      {/* Hero Section */}
       <div
+        data-aos="fade-down"
+        data-aos-duration="1500"
         className="relative w-full h-[600px] md:h-[800px] overflow-hidden shadow-2xl transition-all duration-1000 bg-cover bg-center"
         style={{
           backgroundImage: `url('https://plus.unsplash.com/premium_photo-1665669278652-bc140608a24a?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
         }}
       >
-        <div className="absolute inset-0 bg-black/50 z-0"></div>
+        <div className="absolute inset-0 bg-black/60 z-0"></div>
         <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-6">
-          <h1 className="text-white text-4xl md:text-7xl font-bold tracking-tighter">
-            Experience the Art of Coffee
+          <h1
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="text-white text-5xl md:text-7xl font-bold tracking-tighter mb-6"
+          >
+            Our Coffee Story
           </h1>
-          <p className="text-gray-200 max-w-2xl text-lg italic mt-4">
-            "Premium beans, roasted with passion, brewed for you."
+          <p 
+            data-aos="fade-up"
+            data-aos-delay="400"
+            className="text-gray-200 max-w-3xl text-xl italic mb-8"
+          >
+            "From bean to cup - A journey of passion, quality, and community since 2020."
           </p>
-          <button className="mt-8 px-8 py-3 bg-amber-700 text-white rounded-full font-semibold hover:bg-amber-800 transition shadow-lg">
-            Explore Menu
+          
+          {/* Achievements Stats */}
+          <div 
+            data-aos="fade-up"
+            data-aos-delay="600"
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8"
+          >
+            {achievements.map((item, index) => (
+              <div key={index} className="text-center bg-white/10 backdrop-blur-sm p-4 rounded-2xl">
+                <div className="text-amber-400 mb-2">{item.icon}</div>
+                <div className="text-2xl font-bold text-white">{item.number}</div>
+                <div className="text-sm text-gray-300">{item.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <button 
+            data-aos="zoom-in"
+            data-aos-delay="800"
+            className="mt-10 px-10 py-4 bg-amber-700 text-white rounded-full font-bold text-lg hover:bg-amber-800 transition-all transform hover:scale-105 shadow-2xl"
+          >
+            Discover Our Story
           </button>
         </div>
       </div>
-      <div className="p-8  bg-white mb-3 w-[75%] m-auto rounded-xl shadow shadow-gray-500">
-        <h1 className="text-4xl font-bold text-center mb-5">
-          Our <span className="text-[#a65b3c]">Mission & Values</span>{" "}
+
+      {/* Mission & Values Section */}
+      <div className="p-8 bg-[#C9B59C] mb-3 w-full m-auto shadow-lg">
+        <h1
+          data-aos="fade-right"
+          className="text-4xl md:text-5xl font-bold text-center mb-5"
+        >
+          Our <span className="text-[#a65b3c]">Mission & Values</span>
         </h1>
-        {/* box */}
-        <div className="flex justify-between gap-10 p-8">
-          {/* box_one */}
-          <div className="bg-gray-100 p-10 rounded-2xl shadow-2xl shadow-gray-400 w-[30%] ">
-            <div className=" w-20 h-20  bg-blue-100 rounded-full flex items-center justify-center mx-auto  mb-4">
-              {/* <icon /> */}
-              <Leaf className="text-green-600 " size={35} />
+        <p 
+          data-aos="fade-left"
+          className="text-center text-gray-700 max-w-2xl mx-auto mb-12 text-lg"
+        >
+          We're committed to excellence in every cup while making a positive impact on our community and environment.
+        </p>
+
+        {/* Values Boxes */}
+        <div className="flex flex-col md:flex-row justify-between gap-8 p-4 md:p-8 bg-[#C9B59C]">
+          {values.map((value, index) => (
+            <div
+              key={index}
+              data-aos="zoom-in"
+              data-aos-delay={index * 200}
+              className="bg-[#D9CFC7] p-8 md:p-10 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 w-full md:w-[30%]"
+            >
+              <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
+                {value.icon}
+              </div>
+              <h2 className="text-3xl font-bold mt-3 mb-5 text-center">{value.title}</h2>
+              <p className="text-lg text-center text-gray-700">
+                {value.description}
+              </p>
             </div>
-            <h1 className="text-4xl font-bold mt-3 mb-5">Sustainability</h1>
-            <p className="text-lg p-2">
-              We source 100% ethically grown beans and use eco-friendly
-              packaging to minimize our environmental impact.
-            </p>
-          </div>
-          {/* box_two */}
-          <div className="bg-gray-100 p-10 rounded-2xl shadow-2xl  shadow-gray-400 w-[30%]">
-            <div className=" w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              {/* icon /> */}
-              <HandHeart className="text-red-600" size={35} />
-            </div>
-            <h1 className="text-4xl font-bold mt-3 mb-5 text-center">
-              Our Mission
-            </h1>
-            <p className="text-lg p-2">
-              Every cup is crafted with precision using freshly roasted beans
-              and artisanal brewing techniques.
-            </p>
-          </div>
-          {/* box_three */}
-          <div className="bg-gray-100 p-10 rounded-2xl shadow-2xl shadow-gray-400 w-[30%]">
-            <div className=" w-20 h-20 bg-blue-100 rounded-full flex mx-auto items-center justify-center  mb-4">
-              {/* icon /> */}
-              <Handshake className="text-blue-600" size={35} />
-            </div>
-            <h1 className="text-4xl font-bold mt-3 mb-5 line-clamp-1">
-              Community Focus
-            </h1>
-            <p className="text-lg p-2">
-              We support local farmers and regularly host community events in
-              our space.
-            </p>
-          </div>
+          ))}
         </div>
-        {/* ----Our Story--- */}
+
+        {/* Our Story Section */}
         <div className="mt-20 mb-20">
-          <h1 className="text-center font-bold text-5xl uppercase text-shadow-lg/30 ">
+          <h1
+            data-aos="fade-right"
+            className="text-center font-bold text-4xl md:text-5xl uppercase"
+          >
             Our <span className="text-[#ba582e]">Journey</span>
           </h1>
-          <div className="w-[80%] m-auto "></div>
+          <p 
+            data-aos="fade-left"
+            className="text-center text-gray-700 max-w-2xl mx-auto mt-4 text-lg"
+          >
+            From a small dream to your favorite coffee spot - here's our story
+          </p>
         </div>
-        {/* TimeLine */}
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+
+        {/* Timeline Component */}
+        <div className="min-h-screen bg-[#C9B59C] flex items-center justify-center py-10">
           <Timeline />
         </div>
 
-        {/* our coffee */}
-        <div className="mt-30 bg-gray-50  p-2">
-          <h1 className="text-center text-4xl font-bold mt-20">
-            Our Core Values
+        {/* Coffee Process Section */}
+        <div className="bg-gradient-to-r from-[#b6562e] to-[#8b3e1f] w-full rounded-2xl mt-10 pb-10">
+          <h1 
+            data-aos="fade-up"
+            className="text-center font-bold text-4xl md:text-5xl uppercase text-white pt-16 pb-8"
+          >
+            Our Coffee Process
           </h1>
-          <p className=" text-center w-[50%] pt-10 m-auto text-xl ">
-            {" "}
-            These principles guide everything we do and shape our commitment to
-            our students.
+          <p 
+            data-aos="fade-up"
+            data-aos-delay="200"
+            className="text-center text-amber-200 max-w-2xl mx-auto px-4 mb-12 text-lg"
+          >
+            Every step is carefully crafted to bring you the perfect cup of coffee
           </p>
-        </div>
-        {/*  */}
-        <div className="bg-[#b6562e] w-[100%] mt-10 p-10">
-          <div className="mt-20 w-[97%] m-auto  ">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mb-30">
-              <div className="text-center shadow-lg  rounded-2xl p-5 hover:shadow-2xl shadow-gray-100">
-                <div className=" w-16 h-16  text-blue-700 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 mt-6">
-                  {/* <UserRound /> */}
-                  <Heart size={40} />
+
+          <div className="w-[95%] mx-auto pb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {coffeeProcess.map((item, index) => (
+                <div
+                  key={index}
+                  data-aos="fade-up"
+                  data-aos-delay={index * 150}
+                  className="text-center bg-[#AF8260] rounded-2xl p-6 hover:shadow-2xl shadow-lg transform hover:scale-105 transition-all duration-500"
+                >
+                  <div className="w-20 h-20 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    {item.icon}
+                  </div>
+                  <h3 className="font-bold text-xl mb-3 text-white">
+                    {item.title}
+                  </h3>
+                  <p className="text-white/90 text-base leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
-                <h3 className="font-bold text-xl mb-2 text-gray-100">
-                  {" "}
-                  Passion for Learning
-                </h3>
-                <p className=" text-gray-300 text-lg mt-5 ">
-                  {" "}
-                  We believe education transforms lives and opens doors to
-                  endless possibilities.
-                </p>
-              </div>
-              <div className="text-center shadow-lg  rounded-2xl p-5 hover:shadow-2xl shadow-gray-100">
-                <div className=" w-16 h-16 text-blue-700 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 mt-6">
-                  {/* <Clock4 /> */}
-                  <UserRound size={40} />
-                </div>
-                <h3 className="font-bold text-xl mb-2 text-gray-100"> Student-Centered</h3>
-                <p className=" text-gray-300 text-lg mt-5">
-                  {" "}
-                  Every decision we make puts our students first, ensuring the
-                  best learning experience.
-                </p>
-              </div>
-              <div className="text-center shadow-lg  rounded-2xl p-5 hover:shadow-2xl shadow-gray-100">
-                <div className=" w-16 h-16 text-blue-700 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 mt-6">
-                  <ShieldCheck size={40} />
-                </div>
-                <h3 className="font-bold text-xl mb-2 text-gray-100"> Quality Excellence</h3>
-                <p className=" text-gray-300 text-lg mt-5">
-                  {" "}
-                  We maintain the highest standards in course content,
-                  instruction, and support.
-                </p>
-              </div>
-              <div className="text-center shadow-lg rounded-2xl p-5 hover:shadow-2xl shadow-gray-100">
-                <div className=" w-16 h-16 text-blue-700 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 mt-6">
-                  {/* <Headset /> */}
-                  <Globe size={40} />
-                </div>
-                <h3 className="font-bold text-xl mb-2 text-gray-100">Global Community</h3>
-                <p className=" text-gray-300 text-lg mt-5">
-                  {" "}
-                  Building a diverse, inclusive community of learners from
-                  around the world.
-                </p>
-              </div>
+              ))}
             </div>
           </div>
         </div>
-        {/* <div className="mt-30 bg-gray-50 p-2">
-          <h1 className="text-center text-4xl font-bold mt-20">
-            Meet Our Team
-          </h1>
-          <p className=" text-center w-[50%] text-gray-500 pt-5 m-auto text-xl mb-15 ">
-            {" "}
-            Passionate professionals dedicated to transforming online education.
+
+        {/* Call to Action Section */}
+        <div 
+          data-aos="zoom-in"
+          className="bg-white rounded-2xl p-12 mt-10 text-center shadow-xl"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-[#a65b3c] mb-4">
+            Visit Us Today!
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-8 text-lg">
+            Come experience our passion for coffee and be part of our growing community
           </p>
-        </div> */}
-        <div className="mt-15  w-[95%] m-auto ">
-          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-            <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden">
-              <div className="h-80 flex items-center justify-center w-full">
-                <img
-
-                  className="w-full"
-                  src="https://etec-system.42web.io/assets/lokru.png"
-                  alt=""
-                />
-              </div>
-              <div className="p-6 text-center mt-10 mb-10">
-                <h3 className="text-xl font-bold text-gray-900 mb-1">
-                  {" "}
-                  HENG PHEAKNA
-                </h3>
-                <p className="text-blue-600 font-semibold mb-3"> Director</p>
-                <p className="text-gray-600 text-sm">
-                  {" "}
-                  15+ years in education technology
-                </p>
-              </div>
-            </div>
-            <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden">
-              <div className="h-80 flex items-center justify-center w-full">
-                <img
-                  className="w-full"
-                  src="https://etec-system.42web.io/assets/mimg.png"
-                  alt=""
-                />
-              </div>
-              <div className="p-6 text-center mt-10 mb-10">
-                <h3 className="text-xl font-bold text-gray-900 mb-1">
-                  {" "}
-                  Kung Norasmey
-                </h3>
-                <p className="text-blue-600 font-semibold mb-3">
-                  {" "}
-                  Vice Director
-                </p>
-                <p className="text-gray-600 text-sm">
-                  {" "}
-                  Former software architect at tech giants
-                </p>
-              </div>
-            </div>
-            <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden">
-              <div className="h-80 flex items-center justify-center w-full">
-                <img
-                  className="w-full"
-                  src="https://etec-system.42web.io/assets/nalen.png"
-                  alt=""
-                />
-              </div>
-              <div className="p-6 text-center mt-10 mb-10">
-                <h3 className="text-xl font-bold text-gray-900 mb-1">
-                  {" "}
-                  Srin Nalen
-                </h3>
-                <p className="text-blue-600 font-semibold mb-3">
-                  Web Developer
-                </p>
-                <p className="text-gray-600 text-sm">
-                  {" "}
-                  Former software architect at tech giants
-                </p>
-              </div>
-            </div>
-            <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden">
-              <div className="h-80 flex items-center justify-center w-full">
-                <img
-                  className="w-full"
-                  src="https://etec-elearning.vercel.app/assets/dev-darith-DghgE6Pg.jpg"
-                  alt=""
-                />
-              </div>
-              <div className="p-6 text-center mt-10 mb-10">
-                <h3 className="text-xl font-bold text-gray-900 mb-1">
-                  {" "}
-                  Ven ChanDarith
-                </h3>
-                <p className="text-blue-600 font-semibold mb-3">
-                  Web Developer
-                </p>
-                <p className="text-gray-600 text-sm">
-                  {" "}
-                  Expert in digital marketing strategy Former software architect
-                  at tech giants
-                </p>
-              </div>
-            </div>
-          </div> */}
-          <div className="bg-gray-200 mt-10 rounded-2xl w-[100%]">
-            <div className="p-5">
-              <h1 className="text-center font-bold text-4xl text-gray-700 mt-5">
-                What Our Students Say
-              </h1>
-              <p className="text-center p-3 text-lg mt-3 text-gray-600">
-                Real feedback from real students who transformed their careers
-                with us.
-              </p>
-            </div>
-            <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20 p-4">
-              {/* ========Card1============ */}
-
-              <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden p-5">
-                <div className="bg-white p-8 rounded-xl  text-blue-800">
-                  <Quote size={50} />
-                </div>
-
-                <p className="text-gray-600 mb-6 text-lg italic">
-                  {" "}
-                  LearnHub really kickstarted my career! The courses are clear,
-                  practical, and the instructors actually care about your
-                  growth. Couldn't recommend it more!
-                </p>
-                <div className="flex items-center space-x-4">
-                  <div className="text-4xl">
-                    <img
-                      className="w-24 h-24  "
-                      src="https://i.pinimg.com/736x/60/a1/71/60a1719d559469dbb6bfa1b6d0890e5e.jpg"
-                      alt=""
-                    />
-                  </div>
-
-                  <div className="">
-                    <div className="font-bold text-gray-900">
-                      {" "}
-                      Alex Thompson
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      {" "}
-                      Software Developer
-                    </div>
-                  </div>
-                </div>
-                <div className=" flex space-x-1 mt-4 ">
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                </div>
-              </div>
-              {/* ========Card1============ */}
-              <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden p-5">
-                <div className="bg-white p-8 rounded-xl  text-blue-800">
-                  <Quote size={50} />
-                </div>
-
-                <p className="text-gray-600 mb-6 text-lg italic">
-                  {" "}
-                  Taking courses here was hands-down the best decision for my
-                  career. The content is engaging, and the support team feels
-                  like part of the journey.
-                </p>
-                <div className="flex items-center space-x-4">
-                  <div className="text-4xl">
-                    <img
-                      className="w-24 h-24  "
-                      src="https://i.pinimg.com/736x/c4/d4/af/c4d4afa5d0bcdb35110c71d5adb7a8d7.jpg"
-                      alt=""
-                    />
-                  </div>
-
-                  <div className="">
-                    <div className="font-bold text-gray-900"> Maria Garcia</div>
-                    <div className="text-sm text-gray-600"> UX Designer</div>
-                  </div>
-                </div>
-                <div className=" flex space-x-1 mt-4">
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                </div>
-              </div>
-              {/* ========Card1============ */}
-              <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden p-5">
-                <div className="bg-white p-8 rounded-xl  text-blue-800">
-                  <Quote size={50} />
-                </div>
-
-
-                <p className="text-gray-600 mb-6 text-lg italic">
-                  {" "}
-                  I love that I can learn at my own pace. The platform is
-                  intuitive, the lessons are practical, and I've already started
-                  applying what I learned at work!
-                </p>
-                <div className="flex items-center space-x-4">
-                  <div className="text-4xl">
-                    <img
-                      className="w-24 h-24  "
-                      src="https://i.pinimg.com/1200x/55/06/62/55066253d0d056c690cfb49f4f91ff82.jpg"
-                      alt=""
-                    />
-                  </div>
-
-                  <div className="">
-                    <div className="font-bold text-gray-900"> James Wilson</div>
-                    <div className="text-sm text-gray-600">
-                      {" "}
-                      Marketing Manager
-                    </div>
-                  </div>
-                </div>
-                <div className=" flex space-x-1 mt-4">
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                  <Star className="text-yellow-400 fill-yellow-400" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="mt-10 mb-20">
-            <div className="py-16 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl">
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 className="font-bold text-5xl text-center p-4 text-white ">
-                  Join Our Growing Community
-                </h1>
-                <p className="text-center text-xl mt-3 mb-10 text-white">
-                  Start your learning journey today and become part of something
-                  amazing.
-                </p>
-                <button className=" px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-lg">
-                  {" "}
-                  Get Started Now
-                </button>
-              </div>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="px-8 py-3 bg-[#a65b3c] text-white rounded-full font-semibold hover:bg-[#8b3e1f] transition-all duration-300 transform hover:scale-105">
+              Find Our Location
+            </button>
+            <button className="px-8 py-3 border-2 border-[#a65b3c] text-[#a65b3c] rounded-full font-semibold hover:bg-[#a65b3c] hover:text-white transition-all duration-300">
+              Contact Us
+            </button>
           </div>
         </div>
       </div>
