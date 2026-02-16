@@ -60,7 +60,7 @@ const categories = [
 // Coffee Beans Data
 const coffeeBeans = [
   {
-    image: "https://images.unsplash.com/photo-1559056199-6419aac0b55e?q=80&w=500&auto=format&fit=crop",
+    image: "https://i.pinimg.com/1200x/e5/25/cd/e525cd5c9f4a6d02edeb71483041406e.jpg",
     title: "Arabica Beans",
     price: "$5.00",
     likes: "40",

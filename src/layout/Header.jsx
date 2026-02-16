@@ -9,27 +9,7 @@ import {
   X,
   Search,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
-import { Link } from "react-router-dom"; // កុំភ្លេច import Link
-
-// ... កូដផ្សេងៗទៀត
-
-{
-  /* ស្វែងរកកន្លែងដែលមាន Icon User (Desktop) */
-}
-<div className="hidden md:flex gap-5">
-  <Search
-    size={22}
-    className="cursor-pointer hover:text-amber-600 transition"
-    onClick={() => setSearchOpen(!searchOpen)}
-  />
-
-  {/* ខ្ចប់ Icon ជាមួយ Link បែបនេះ */}
-  <Link to="/pwd">
-    <User className="cursor-pointer hover:text-amber-600 transition" />
-  </Link>
-</div>;
-import Pwd from "../page/AdminProfile";
+import { NavLink, Link } from "react-router-dom";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -58,7 +38,6 @@ const Header = () => {
     { name: "Info", to: "/info", icon: <Info size={20} /> },
   ];
 
-  // Active underline animation
   const activeClass = ({ isActive }) =>
     `relative flex items-center gap-2 transition 
      after:content-[''] after:absolute after:left-0 after:-bottom-1 
@@ -77,8 +56,9 @@ const Header = () => {
     }`;
 
   return (
-    <nav className="shadow-md bg-[#fafafad0] fixed  w-full z-50 border-b">
+    <nav className="shadow-md bg-[#fafafad0] fixed w-full z-50 border-b">
       <div className="max-w-7xl mx-auto flex justify-between items-center h-20 px-4">
+        
         {/* LOGO */}
         <img
           src="https://i.pinimg.com/736x/ec/aa/6a/ecaa6ac4cbb715c055bd586316117d00.jpg"
@@ -98,33 +78,44 @@ const Header = () => {
           ))}
         </ul>
 
-        {/* Icons */}
+        {/* ✅ Desktop Icons */}
         <div className="hidden md:flex gap-5">
           <Search
             size={22}
             className="cursor-pointer hover:text-amber-600 transition"
             onClick={() => setSearchOpen(!searchOpen)}
           />
-         {/* ----User- */}
-          {/* <User className="cursor-pointer hover:text-amber-600 transition" /> */}
-          {/* <Link to="/AdminProfile">
-            <User className="cursor-pointer hover:text-amber-600 transition" />
-          </Link> */}
-          {/* <Link to="/Admin">
-            <User className="cursor-pointer hover:text-amber-600 transition" />
-          </Link> */}
+
           <Link to="/signup">
             <User className="cursor-pointer hover:text-amber-600 transition" />
           </Link>
         </div>
 
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden text-slate-600"
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        {/* ✅ Mobile Icons + Toggle */}
+        <div className="flex items-center gap-4 md:hidden">
+          {/* Search */}
+          <Search
+            size={24}
+            className="cursor-pointer text-slate-700"
+            onClick={() => setSearchOpen(!searchOpen)}
+          />
+
+          {/* User */}
+          <Link to="/signup">
+            <User
+              size={24}
+              className="cursor-pointer text-slate-700"
+            />
+          </Link>
+
+          {/* Toggle */}
+          <button
+            className="text-slate-700"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
       </div>
 
       {/* MOBILE MENU */}
@@ -143,22 +134,20 @@ const Header = () => {
         </div>
       )}
 
-      {/* TOP SEARCH DROPDOWN */}
+      {/* SEARCH DROPDOWN */}
       {searchOpen && (
         <div className="absolute left-0 top-full w-full flex justify-center mt-4 px-4">
           <div
             className="relative w-full max-w-2xl 
             bg-white/90 backdrop-blur-xl 
             rounded-2xl shadow-2xl p-6 
-            border animate-slideDown"
+            border"
           >
-            {/* CLOSE */}
             <X
-              className="absolute right-2 top-1 cursor-pointer hover:text-orange-500 mb-2"
+              className="absolute right-2 top-1 cursor-pointer hover:text-orange-500"
               onClick={() => setSearchOpen(false)}
             />
 
-            {/* INPUT */}
             <div className="flex gap-3">
               <input
                 autoFocus
