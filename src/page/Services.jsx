@@ -133,7 +133,7 @@ const Services = () => {
   ];
 
   return (
-    <div className="mt-[-40px] mb-20">
+    <div className="mt-[35px] mb-20">
       {/* Hero Section */}
       <div
         data-aos="fade-down"

@@ -77,7 +77,7 @@ const ContactPage = () => {
     });
   }, []);
   return (
-    <div className="bg-gray-50 w-full min-h-screen pb-20 mx-auto mt-[-40px]">
+    <div className="bg-gray-50 w-full min-h-screen pb-20 mx-auto mt-[35px]">
       <div
         className="relative w-full h-[600px] md:h-[800px] overflow-hidden shadow-2xl transition-all duration-1000 bg-cover bg-center"
         style={{

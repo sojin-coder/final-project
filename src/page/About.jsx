@@ -105,7 +105,7 @@ function About() {
   ];
 
   return (
-    <div className="mt-[-40px]">
+    <div className="mt-[35px]">
       {/* Hero Section */}
       <div
         data-aos="fade-down"

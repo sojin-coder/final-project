@@ -59,7 +59,7 @@ const info = () => {
   }, []);
 
   return (
-    <div className="min-h-screen font-sans antialiased mt-[-40px]">
+    <div className="min-h-screen font-sans antialiased mt-[35px]">
       {/* 1. HERO SECTION */}
       <section
         data-aos="fade-down"
