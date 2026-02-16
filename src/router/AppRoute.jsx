@@ -220,7 +220,7 @@ import Detail from "../page/Detail";
 import NotFound from "../page/notFount"; // ប្តូរពី notFount ទៅ NotFound
 
 import Admin from "../page/Admin";
-import Dashboard from "../page/Dashboard"; // ប្តូរពី dashboard ទៅ Dashboard
+import Dashboard from "../page/dashboard"; // ប្តូរពី dashboard ទៅ Dashboard
 import AdminProfile from "../page/AdminProfile";
 import Signup from "../page/Signup";
 import UserDashboard from "../page/UserDashboard";
