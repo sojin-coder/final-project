@@ -297,7 +297,7 @@ const ContactPage = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-sky-300 bg-[#6F4E37] text-white font-bold py-4 rounded-xl flex justify-center items-center gap-2"
+                  className="w-full bg-gradient-to-r  bg-[#6F4E37] text-white font-bold py-4 rounded-xl flex justify-center items-center gap-2"
                 >
                   <Send size={18} /> Send Message
                 </button>
