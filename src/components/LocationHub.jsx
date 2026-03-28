@@ -3,10 +3,10 @@ import { MapPin, Navigation, Maximize2, Layers, Cpu, Radio, Phone } from 'lucide
 
 export default function UpdatedLocationHub() {
   return (
-    <div className="min-h-screen bg-[#0a0518] text-white p-4 md:p-10 font-mono">
+    <div className="min-h-screen bg-[#6F4E37] text-white p-4 md:p-10 font-mono">
       {/* Header Section */}
       <div className="text-center mb-8">
-        <h1 className="text-5xl md:text-7xl font-black tracking-tighter bg-gradient-to-b from-purple-400 to-purple-800 bg-clip-text text-transparent italic uppercase">
+        <h1 className="text-5xl md:text-7xl font-black text-amber-50 italic uppercase">
           Location Hub
         </h1>
         <div className="flex flex-col items-center justify-center gap-2 mt-4">
@@ -25,7 +25,7 @@ export default function UpdatedLocationHub() {
       <div className="max-w-6xl mx-auto relative group">
         <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-cyan-600 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
         
-        <div className="relative bg-[#1a1625] rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+        <div className="relative bg-[#1a1625] rounded-3xl border border-white/10 overflow-hidden shadow-2xl shadow-[#6F4E37]">
           {/* Iframe Google Maps (បង្ហាញផែនទីពិតប្រាកដ) */}
           <div className="w-full h-[400px] md:h-[500px] relative">
             <iframe 
@@ -74,7 +74,7 @@ function StatCard({ label, value }) {
       </p>
       <p className="text-3xl font-black tracking-tight">{value}</p>
       <div className="mt-4 h-1 w-full bg-white/5 rounded-full overflow-hidden">
-        <div className="h-full bg-gradient-to-r from-cyan-500 to-purple-500 w-full shadow-[0_0_10px_#22d3ee]"></div>
+        <div className="h-full bg-[#6F4E37] w-full shadow-[0_0_10px_#22d3ee]"></div>
       </div>
     </div>
   );

@@ -20,6 +20,19 @@ import Signup from "../page/Signup";
 import UserDashboard from "../page/UserDashboard";
 import ProtectedRoute from "./ProtectedRoute";
 import Pay from "../page/pay";
+import Menu from "../page/menu";
+import Drinks from "../menu/drinks";
+import Snacks from "../menu/snacks";
+import Coffee from "../menu/coffee";
+import Order_success from "../page/order_success";
+import UserRoute from "./UserRoute";
+import AdminRoute from "./AdminRoute";
+import Login from "../page/login";
+
+
+
+
+
 // import detail from "../page/Detail";
 
 
@@ -36,48 +49,67 @@ function AppRoute() {
         <Route path="info" element={<Info />} />
         <Route path="detail/:id" element={<Detail />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="menu" element={<Menu />} />
+        <Route path="coffee" element={<Coffee />} />
+        <Route path="snack" element={<Snacks />} />
+        <Route path="drink" element={<Drinks />} />
+        <Route path="order-success" element={<Order_success />} />
+        <Route path="login" element={<Login />} />
+
 
         {/* Protected page inside layout */}
-        <Route
+        {/* <Route
           path="adminprofile"
           element={
             <ProtectedRoute>
               <AdminProfile />
             </ProtectedRoute>
           }
-        />
+        /> */}
       </Route>
 
       {/* ✅ Login */}
-      <Route path="/admin" element={<Admin />} />
+      {/* <Route path="/admin" element={<Admin />} /> */}
 
       {/* ✅ ADMIN Dashboard */}
-      <Route
+      {/* <Route
         path="/admin/dashboard"
         element={
           <ProtectedRoute roleRequired="admin">
             <Dashboard />
           </ProtectedRoute>
         }
-      />
+      /> */}
 
       {/* ✅ USER Dashboard */}
-      <Route
+      {/* <Route
   path="/UserDashboard"
   element={
     <ProtectedRoute roleRequired="user">
       <UserDashboard />
     </ProtectedRoute>
   }
-/>
+/> */}
+{/* ----------new protect----- */}
+<Route path="/admin/dashboard" element={
+  <AdminRoute>
+    <Dashboard />
+  </AdminRoute>
+} />
+
+<Route path="/UserDashboard" element={
+  <UserRoute>
+    <UserDashboard />
+  </UserRoute>
+} />
 <Route path="/pay" element={<Pay />} />
 
 
       {/* ✅ Smart Redirect */}
-      <Route
+      {/* <Route
         path="/dashboard"
         element={<Navigate to="/admin/dashboard" replace />}
-      />
+      /> */}
 
       {/* ✅ 404 - ត្រូវដាក់នៅចុងបំផុត */}
       <Route path="*" element={<NotFound />} />

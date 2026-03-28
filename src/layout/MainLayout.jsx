@@ -2,17 +2,17 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
-// import About from '../page/About';
 
-const MainLayout = () => {
+
+const MainLayout = ({ cartCount }) => {
   return (
     <>
-      <Header />
+      <Header  cartCount={cartCount}/>
       
       <main className='pt-10'>
         <Outlet /> 
       </main>
-      {/* <About /> */}
+   
       < Footer/>
     </>
   );

@@ -313,7 +313,7 @@ const ContactPage = () => {
           data-aos-offset="0">
           <LocationHub />
         </div>
-        <div className="  bg-gradient-to-r from-gray-800 to-gray-900 text-white w-[95%] mx-auto mt-20 ">
+        <div className="  bg-[#6F4E37] text-white w-[95%] mx-auto mt-20 ">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">
               Need Immediate Assistance?

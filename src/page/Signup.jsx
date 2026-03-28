@@ -7,17 +7,11 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { 
-  User, 
-  Phone, 
-  Mail, 
-  Lock, 
-  Eye, 
-  EyeOff, 
-  CheckCircle, 
+ 
   XCircle,
   Coffee,
   ArrowLeft,
-  UserPlus
+
 } from "lucide-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -31,7 +25,8 @@ const Signup = () => {
     phone: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    address: "",
   });
 
   const [agreed, setAgreed] = useState(false); // ⭐ FIX CHECKBOX
@@ -173,9 +168,11 @@ const Signup = () => {
       </button>
 
       {/* Card */}
-      <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8">
-
-        <div className="text-center mb-8">
+      <div className="flex gap-3 items-center justify-center mb-10">
+      <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 mt-10 ">
+        <div className="flex">
+        <div className="form-sign ">
+          <div className="text-center mb-8">
           <Coffee size={50} className="mx-auto text-amber-700" />
           <h1 className="text-3xl font-bold text-amber-800 mt-4">
             Create Account
@@ -227,6 +224,12 @@ const Signup = () => {
             className="w-full border p-3 rounded-xl"
             onChange={handleChange}
           />
+          <input
+            name="address"
+            placeholder="Address"
+            className="w-full border p-3 rounded-xl"
+            onChange={handleChange}
+          />
 
           {/* ✅ CHECKBOX FIX */}
           <label className="flex gap-2 text-sm">
@@ -252,16 +255,32 @@ const Signup = () => {
           {/* ✅ LOGIN ROUTE FIX */}
           <p className="text-center">
             Already have account?{" "}
+            {/* <span
+              className="text-amber-700 cursor-pointer"
+              onClick={() => navigate("/admin")}//----edit 
+            >
+              Login
+            </span> */}
             <span
               className="text-amber-700 cursor-pointer"
-              onClick={() => navigate("/admin")}
+              onClick={() => navigate("/userdashboard")}//----edit 
             >
               Login
             </span>
           </p>
 
         </form>
+        </div>
+      
+        </div>
+
+       
       </div>
+        <div className="img mt-10 ">
+
+          <img src="https://i.pinimg.com/736x/18/6a/31/186a318011e250aac473116482725946.jpg" alt="" className="w-[550px] h-[710px] rounded-2xl object-cover" />
+        </div>
+        </div>
     </div>
   );
 };

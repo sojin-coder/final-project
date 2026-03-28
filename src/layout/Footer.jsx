@@ -33,11 +33,11 @@ const CONTACT_INFO = [
 ];
 
 const SOCIAL_ICONS = [
-  { icon: Facebook, label: 'Facebook', href: 'https://facebook.com/coffeetime' },
-  { icon: Instagram, label: 'Instagram', href: 'https://instagram.com/coffeetime' },
-  { icon: CirclePlay, label: 'TikTok', href: 'https://tiktok.com/@coffeetime' },
-  { icon: Twitter, label: 'Twitter', href: 'https://twitter.com/coffeetime' },
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/company/coffeetime' }
+  { icon: Facebook, label: 'Facebook', href: 'https://facebook.com' },
+  { icon: Instagram, label: 'Instagram', href: 'https://instagram.com' },
+  { icon: CirclePlay, label: 'TikTok', href: 'https://tiktok.com' },
+  { icon: Twitter, label: 'Twitter', href: 'https://twitter.com' },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/' }
 ];
 
 const GALLERY_IMAGES = [
@@ -80,81 +80,6 @@ SocialIcon.propTypes = {
   onClick: PropTypes.func
 };
 
-// Newsletter Form Component
-const NewsletterForm = () => {
-  const [email, setEmail] = React.useState('');
-  const [status, setStatus] = React.useState('idle'); // idle, loading, success, error
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setStatus('loading');
-    
-    // Simulate API call
-    setTimeout(() => {
-      setStatus('success');
-      setEmail('');
-      setTimeout(() => setStatus('idle'), 3000);
-    }, 1500);
-  };
-
-  return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-white">Subscribe to our newsletter</h3>
-      <p className="text-sm text-gray-300">Get 10% off your first order!</p>
-      <form onSubmit={handleSubmit} className="space-y-3">
-        <div className="flex">
-          <input
-            type="email"
-            placeholder="Your email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="flex-1 px-4 py-3 text-gray-900 bg-white rounded-l-md focus:outline-none focus:ring-2 focus:ring-amber-500"
-            disabled={status === 'loading'}
-          />
-          <button
-            type="submit"
-            disabled={status === 'loading'}
-            className="bg-amber-600 px-6 py-3 rounded-r-md hover:bg-amber-700 transition-colors duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-          >
-            {status === 'loading' ? (
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-            ) : (
-              'Subscribe'
-            )}
-          </button>
-        </div>
-        {status === 'success' && (
-          <p className="text-green-400 text-sm">✓ Successfully subscribed!</p>
-        )}
-        {status === 'error' && (
-          <p className="text-red-400 text-sm">✗ Something went wrong. Try again.</p>
-        )}
-      </form>
-    </div>
-  );
-};
-
-// Business Hours Component
-const BusinessHours = () => (
-  <div className="space-y-3">
-    <h3 className="text-lg font-semibold text-white">Business Hours</h3>
-    <div className="space-y-2 text-sm text-gray-300">
-      <div className="flex justify-between">
-        <span>Monday - Friday:</span>
-        <span className="text-white">7:00 AM - 8:00 PM</span>
-      </div>
-      <div className="flex justify-between">
-        <span>Saturday:</span>
-        <span className="text-white">8:00 AM - 9:00 PM</span>
-      </div>
-      <div className="flex justify-between">
-        <span>Sunday:</span>
-        <span className="text-white">8:00 AM - 6:00 PM</span>
-      </div>
-    </div>
-  </div>
-);
 
 // Main Footer Component
 const Footer = () => {
@@ -288,14 +213,10 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Middle Section: Newsletter & Business Hours */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-12 py-8 border-t border-b border-white/20">
-          <NewsletterForm />
-          <BusinessHours />
-        </div>
+     
 
         {/* Bottom Section: Social Links & Copyright */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 border-t pt-10  border-white/20">
           {/* Social Icons */}
           <div className="flex gap-4">
             {SOCIAL_ICONS.map((social) => (

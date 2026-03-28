@@ -8,6 +8,8 @@ import {
   Menu,
   X,
   Search,
+  ShoppingCart ,
+  Coffee,
 } from "lucide-react";
 import { NavLink, Link } from "react-router-dom";
 
@@ -32,6 +34,7 @@ const Header = () => {
 
   const menus = [
     { name: "Home", to: "/", icon: <Home size={20} /> },
+    { name: "Menu", to: "/menu", icon: <Coffee size={20} /> },
     { name: "About", to: "/about", icon: <User size={20} /> },
     { name: "Services", to: "/services", icon: <Settings size={20} /> },
     { name: "Contact", to: "/contact", icon: <Mail size={20} /> },
@@ -89,6 +92,7 @@ const Header = () => {
           <Link to="/signup">
             <User className="cursor-pointer hover:text-amber-600 transition" />
           </Link>
+          
         </div>
 
         {/* ✅ Mobile Icons + Toggle */}
@@ -107,6 +111,8 @@ const Header = () => {
               className="cursor-pointer text-slate-700"
             />
           </Link>
+          {/* Menu */}
+         
 
           {/* Toggle */}
           <button

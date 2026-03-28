@@ -158,10 +158,10 @@ function About() {
       </div>
 
       {/* Mission & Values Section */}
-      <div className="p-8 bg-[#C9B59C] mb-3 w-full m-auto shadow-lg">
+      <div className="p-8 bg-[#C9B59C] mb-3 w-full m-auto shadow-lg ">
         <h1
           data-aos="fade-right"
-          className="text-4xl md:text-5xl font-bold text-center mb-5"
+          className="text-4xl md:text-5xl font-bold text-center mb-5 mt-20"
         >
           Our <span className="text-[#a65b3c]">Mission & Values</span>
         </h1>

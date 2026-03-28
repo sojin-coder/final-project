@@ -21,9 +21,9 @@ import 'swiper/css/navigation';
 
 // --- ទិន្នន័យ (Data) រក្សាទុកដូចដើមទាំងអស់ ---
 const menuItems = [
-  { id: 1, title: "Late Coffee", description: "Best bays with late Coffee", price: "$ 5.30", rating: 3.8, image: "https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=1037&auto=format&fit=crop" },
-  { id: 2, title: "Espresso", description: "Strong and bold espresso", price: "$ 5.30", rating: 4.5, image: "https://images.unsplash.com/photo-1579992357154-faf4bde95b3d?q=80&w=387&auto=format&fit=crop" },
-  { id: 3, title: "Coffee Ice", description: "Refreshing cold coffee ice", price: "$ 5.30", rating: 4.0, image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=387&auto=format&fit=crop" }
+  { id: 1, title: "Late Coffee", description: "Best bays with late Coffee", price: 5.30, rating: 3.8, image: "https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=1037&auto=format&fit=crop" },
+  { id: 2, title: "Espresso", description: "Strong and bold espresso", price: 5.30, rating: 4.5, image: "https://images.unsplash.com/photo-1579992357154-faf4bde95b3d?q=80&w=387&auto=format&fit=crop" },
+  { id: 3, title: "Coffee Ice", description: "Refreshing cold coffee ice", price:  5.30, rating: 4.0, image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=387&auto=format&fit=crop" }
 ];
 
 const images = [
@@ -33,8 +33,8 @@ const images = [
 ];
 
 const categories = [
-  { icon: <CupSoda size={50} />, label: "Drinks", count: "30 Courses", color: "blue" },
-  { icon: <Popcorn size={50} />, label: "Snacks", count: "50 Courses", color: "green" },
+  { icon: <CupSoda size={50} />, label: "Drink", count: "30 Courses", color: "blue" },
+  { icon: <Popcorn size={50} />, label: "Snack", count: "50 Courses", color: "green" },
   { icon: <Coffee size={50} />, label: "Coffee", count: "15 Courses", color: "amber" },
 ];
 
@@ -51,8 +51,8 @@ const coffeeBeans = [
 const drinks = [
   { image: "https://i.pinimg.com/1200x/c4/73/7e/c4737e013a673e196416210867f9b1f8.jpg", title: "Coffee latte", price: "$5.00", likes: "40" },
   { image: "https://i.pinimg.com/736x/f0/65/5f/f0655f2737da76be9b4ac435c65e3d9b.jpg", title: "Cappuccino", price: "$10.00", likes: "100" },
-  { image: "https://i.pinimg.com/736x/bd/c4/4b/bdc44b6700ece11ff713ee133803f371.jpg", title: "Caramel Ice Cream Coffee", price: "$10.00", likes: "50" },
-  { image: "https://i.pinimg.com/1200x/81/de/70/81de70fd36f7dfad4e2fb71642863924.jpg", title: "Coffee Milkshake", price: "$12.00", likes: "200" },
+  { image: "https://i.pinimg.com/1200x/eb/b2/2e/ebb22ee771064a957e8c99bd559250bc.jpg", title: "Caramel Ice Cream Coffee", price: "$10.00", likes: "50" },
+  { image: "https://i.pinimg.com/736x/1f/92/5e/1f925e6b3751d194cc96e00af710f0bc.jpg", title: "Coffee Milkshake", price: "$12.00", likes: "200" },
   { image: "https://i.pinimg.com/1200x/bc/ff/c0/bcffc047d62ea4b955da5695799737a8.jpg", title: "Chocolate milkshake", price: "$8.00", likes: "990" },
   { image: "https://i.pinimg.com/1200x/d3/32/d9/d332d9179ff7c342b1afda7b68502a36.jpg", title: "Healthy Blueberry Smoothie", price: "$10.00", likes: "500" },
   { image: "https://i.pinimg.com/736x/4c/28/e2/4c28e2420bf38c50120dba0cbaf42e8d.jpg", title: "Espresso Coffee", price: "$8.00", likes: "550" },
@@ -73,7 +73,10 @@ const snacks = [
   { image: "https://i.pinimg.com/736x/c6/57/44/c6574478d3aade47b488516626ae5b53.jpg", title: "Japanese fluffy pancakes", price: "$1.90", likes: "450" },
   { image: "https://i.pinimg.com/736x/a5/28/64/a52864acd60be934593adb7a88505ff6.jpg", title: "Fluffy Strawberry Nutella Pancakes", price: "$10.00", likes: "560" },
   { image: "https://i.pinimg.com/736x/9b/fe/d4/9bfed48fc5c70bd52b98cfc5c72b22f9.jpg", title: "Cake", price: "$4.50", likes: "502" },
+  { image: "https://i.pinimg.com/736x/32/f8/ea/32f8ea81afa188567ce556c4cf1d22db.jpg", title: "Bento Cake", price: "$4.50", likes: "502" },
+  { image: "https://i.pinimg.com/1200x/a2/54/ab/a254ab3176f62d952a39db1c7a2a6a2b.jpg", title: "Cookie", price: "$4.50", likes: "502" },
 ];
+
 
 const Home = () => {
   const [current, setCurrent] = useState(0);
@@ -125,7 +128,7 @@ const Home = () => {
         <p data-aos="fade-up" data-aos-delay="200" className="text-center text-gray-600 mb-12 text-lg">Choose from our wide variety of drinks and snacks.</p>
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {categories.map((cat, idx) => (
-            <div key={idx} data-aos="fade-up" data-aos-delay={idx * 150} onClick={() => navigate(`/category/${cat.label.toLowerCase()}`)} className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl text-center hover:scale-105 transition-all duration-500 cursor-pointer group">
+            <div key={idx} data-aos="fade-up" data-aos-delay={idx * 150} onClick={() => navigate(`/${cat.label.toLowerCase()}`)} className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl text-center hover:scale-105 transition-all duration-500 cursor-pointer group">
               <div className={`w-24 h-24 bg-${cat.color}-50 text-${cat.color}-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:rotate-12 transition-transform duration-500`}>
                 {cat.icon}
               </div>
@@ -154,7 +157,7 @@ const Home = () => {
                     <Star size={20} fill="currentColor" />
                     <span className="ml-1 text-white font-semibold">{item.rating}</span>
                   </div>
-                  <span className="text-2xl font-bold text-amber-400">{item.price}</span>
+                  <span className="text-2xl font-bold text-amber-400">${item.price}</span>
                 </div>
                 <button onClick={(e) => { e.stopPropagation(); handleBuyNow(item); }} className="bg-amber-700 px-8 py-3 rounded-full font-semibold hover:bg-amber-800 transition-all transform hover:scale-105 active:scale-95 shadow-lg">Buy Now</button>
               </div>
