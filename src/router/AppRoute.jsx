@@ -28,6 +28,14 @@ import Order_success from "../page/order_success";
 import UserRoute from "./UserRoute";
 import AdminRoute from "./AdminRoute";
 import Login from "../page/login";
+import Test from "../page/test";
+import Special_menu from "../product/Special_menu";
+import Coffee_Beans from "../product/Coffee_Beans";
+import Snacks_Menu from "../product/Snacks_Menu";
+import Drinks_Menu from "../product/Drinks_Menu";
+import Coffeebean from "../menu/coffeebean";
+
+
 
 
 
@@ -55,6 +63,12 @@ function AppRoute() {
         <Route path="drink" element={<Drinks />} />
         <Route path="order-success" element={<Order_success />} />
         <Route path="login" element={<Login />} />
+        <Route path="test" element={<Test />} />
+        <Route path="Special_menu" element={<Special_menu />} />
+        <Route path="Coffee_Beans" element={<Coffee_Beans />} />
+        <Route path="Snacks_Menu" element={<Snacks_Menu />} />
+        <Route path="Drinks_Menu" element={<Drinks_Menu />} />
+        <Route path="coffeebean" element={<Coffeebean/>} />
 
 
         {/* Protected page inside layout */}

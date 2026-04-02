@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const coffee = () => {
+const coffeebean = () => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [cartItems, setCartItems] = useState([]);
@@ -35,115 +35,103 @@ const coffee = () => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
-    
+   
 const products = [
   {
     id: 1,
-    title: "Cappuccino",
+    title: "Coffee beans",
     price: 5.00,
     likes: 40,
     image:
-      " https://i.pinimg.com/736x/c1/ba/26/c1ba263e6a686b4a96d0a1472b3a9834.jpg",
-       category: "coffee"
+      " https://i.pinimg.com/736x/aa/30/b6/aa30b607182531031c45d3a7acf0b829.jpg",
   },
   {
     id: 2,
-    title: "Cappuccino hot",
-    price: 5.00,
+    title: "Coffee beans",
+    price: 3.90,
     likes: 40,
     image:
-      " https://i.pinimg.com/1200x/c4/73/7e/c4737e013a673e196416210867f9b1f8.jpg",
-       category: "coffee"
+      "https://i.pinimg.com/736x/e6/e9/f2/e6e9f2fe9778732433b6f61ed1d7d404.jpg",
   },
   {
     id: 3,
-    title: "Coffee ices",
-    price: 5.00,
+    title: "Coffee beans",
+    price: 2.90,
     likes: 40,
     image:
-      " https://i.pinimg.com/736x/a2/e2/a1/a2e2a153a2fef3ae3ee3f7c991cf6f18.jpg",
-       category: "coffee"
+      "https://i.pinimg.com/1200x/dd/93/e0/dd93e0cfb54d037f212907152ed845d8.jpg",
   },
   {
     id: 4,
-    title: "black Coffee hot",
+    title: "Coffee beans",
     price: 5.00,
     likes: 40,
     image:
-      " https://i.pinimg.com/736x/90/b4/90/90b49043a5a827b3539fba4d1cf137c8.jpg",
-       category: "coffee"
+      " https://i.pinimg.com/1200x/00/44/41/00444181893a883eeb6b5d194898bfa8.jpg",
   },
   {
     id: 5,
-    title: "black Coffee ice",
-    price: 5.00,
+    title: "Coffee beans",
+    price: 6.00,
     likes: 40,
     image:
-      "https://i.pinimg.com/736x/83/91/51/839151441eeb8a394f491d92e49cb889.jpg",
-       category: "coffee"
+      "https://i.pinimg.com/1200x/b8/3f/b2/b83fb2146bf68a9b9bf5f63aae311f89.jpg",
   },
   {
     id: 6,
-    title: "Ilatte",
-    price: 5.00,
+    title: "Coffee beans",
+    price: 5.50,
     likes: 40,
     image:
-      " https://i.pinimg.com/736x/8c/79/14/8c7914fd444376555ab0de073f082144.jpg",
-       category: "coffee"
+      "https://i.pinimg.com/1200x/5c/f9/5a/5cf95a47421db6c4e7866478e07388b3.jpg ",
   },
   {
     id: 7,
-    title: "Coffee chocolate",
-    price: 5.00,
+    title: "Coffee beans",
+    price: 2.90,
     likes: 40,
     image:
-      " https://i.pinimg.com/736x/a2/43/51/a24351d202d0399d666b77f8528e4009.jpg",
-       category: "coffee"
+      "https://i.pinimg.com/736x/c6/85/6d/c6856d5079643a82d5191145528ce417.jpg ",
   },
   {
     id: 8,
-    title: "Coffee Milkshake",
-    price: 5.00,
+    title: "Coffee beans",
+    price: 3.90,
     likes: 40,
     image:
-      " https://i.pinimg.com/1200x/b7/ba/63/b7ba6320248edf2bbddf3d5716e3989f.jpg",
-       category: "coffee"
+      " https://i.pinimg.com/736x/ac/dd/e0/acdde05d6c4cc98a3ad2f2facdce6476.jpg",
   },
   {
     id: 9,
-    title: "Americano ",
-    price: 5.00,
+    title: "Coffee beans",
+    price: 2.90,
     likes: 40,
     image:
-      " https://i.pinimg.com/736x/0e/52/30/0e52308b27b6b9ea83aa371c0b01a5a8.jpg",
-       category: "coffee"
+      "https://i.pinimg.com/1200x/48/b9/b2/48b9b29822353c577309a5e6665787bf.jpg ",
   },
   {
     id: 10,
-    title: "𝚈𝚞𝚖𝚖𝚢 ℂ𝕠𝕗𝕗𝕖𝕖",
-    price: 5.00,
+    title: "Coffee beans",
+    price: 1.99,
     likes: 40,
     image:
-      " https://i.pinimg.com/736x/53/8a/3f/538a3f9d5bd00ca7b2c7f866a3fd864a.jpg",
-       category: "coffee"
+      " https://i.pinimg.com/1200x/0c/30/6a/0c306a90fb9cb928e7b871a8178f0470.jpg",
   },
   {
     id: 11,
-    title: "Iced Mocha",
-    price: 5.00,
+    title: "Banana Shake",
+    price: 2.00,
     likes: 40,
     image:
-      "https://i.pinimg.com/736x/4d/e0/68/4de068124212961d6481e6c631774053.jpg ",
-       category: "coffee"
+      " https://i.pinimg.com/1200x/cd/bb/13/cdbb13a7fd5c930aa32b7ecb15190089.jpg",
   },
   {
     id: 12,
-    title: "Coconut Mocha Protein Coffee",
-    price: 5.00,
+    title: "Chocolate Vanilla frappe",
+    price: 3.00,
     likes: 40,
     image:
-      "https://i.pinimg.com/736x/1f/b1/64/1fb16469948fe4d6b43067bd6bd87572.jpg ",
-       category: "coffee"
+      "https://i.pinimg.com/1200x/23/64/bd/2364bd87bb5664dd3b5f05a3d3ea1eeb.jpg",
   },
 ];
 
@@ -225,7 +213,7 @@ const products = [
   // Handle checkout
   const handleCheckout = () => {
     if (cartItems.length === 0) {
-      alert('Please order food in advance.!');
+      alert('Plz order befor!');
       return;
     }
     navigate('/pay', { state: { cartItems: cartItems } });
@@ -364,7 +352,7 @@ const products = [
 
                   <div className="border-t pt-4 mb-6">
                     <div className="flex justify-between text-lg font-semibold mb-2">
-                      <span>Total</span>
+                      <span>total</span>
                       <span className="text-amber-700">${getTotalPrice().toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-sm text-gray-600">
@@ -372,7 +360,7 @@ const products = [
                       <span>${(getTotalPrice() * 0.1).toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-xl font-bold mt-4 pt-4 border-t">
-                      <span>Total All</span>
+                      <span>Total all</span>
                       <span className="text-amber-700">${(getTotalPrice() * 1.1).toFixed(2)}</span>
                     </div>
                   </div>
@@ -436,16 +424,16 @@ const products = [
   >
     Drinks
   </Link>
-  <Link 
-    to="/coffeebean"
-    className={`text-lg px-6 py-2 rounded-full transition-all ${
-      location.pathname === '/coffeebean' 
-        ? 'bg-amber-600 text-white shadow-lg' 
-        : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-amber-600 hover:text-amber-600'
-    }`}
-  >
-    Coffee Beans 
-  </Link>
+   <Link 
+      to="/coffeebean"
+      className={`text-lg px-6 py-2 rounded-full transition-all ${
+        location.pathname === '/coffeebean' 
+          ? 'bg-amber-600 text-white shadow-lg' 
+          : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-amber-600 hover:text-amber-600'
+      }`}
+    >
+      Coffee Beans 
+    </Link>
 </div>
       </div>
 
@@ -467,7 +455,7 @@ const products = [
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-2xl font-bold flex items-center gap-2">
                 <CreditCard className="text-amber-700" />
-                Buy New
+                Buy Now
               </h3>
               <button
                 onClick={() => setShowBuyModal(false)}
@@ -493,7 +481,7 @@ const products = [
             
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Quantity:
+              Quantity:
               </label>
               <div className="flex items-center gap-3">
                 <button
@@ -520,12 +508,12 @@ const products = [
             
             <div className="border-t pt-4 mb-6">
               <div className="flex justify-between text-lg">
-                <span className="font-semibold">Total all:</span>
+                <span className="font-semibold">Total:</span>
                 <span className="text-2xl font-bold text-amber-700">
                   ${(selectedItem.price * buyQuantity).toFixed(2)}
                 </span>
               </div>
-              <p className="text-xs text-gray-500 mt-1">*Include 10% tax at checkout.</p>
+              <p className="text-xs text-gray-500 mt-1">*Add 10% tax when paying.</p>
             </div>
             
             <div className="flex gap-3">
@@ -549,4 +537,4 @@ const products = [
   );
 };
 
-export default coffee;
+export default coffeebean;

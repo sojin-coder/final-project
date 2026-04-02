@@ -258,7 +258,7 @@ const Pay = () => {
                         <p className="font-bold text-gray-800 text-lg">
                           ${(orderPrice * order.quantity).toFixed(2)}
                         </p>
-                        <p className="text-xs text-gray-500">សរុបរង</p>
+                        <p className="text-xs text-gray-500">Sub-total</p>
                       </div>
                     </div>
                   );

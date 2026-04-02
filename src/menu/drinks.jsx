@@ -424,6 +424,16 @@ const products = [
   >
     Drinks
   </Link>
+   <Link 
+      to="/coffeebean"
+      className={`text-lg px-6 py-2 rounded-full transition-all ${
+        location.pathname === '/coffeebean' 
+          ? 'bg-amber-600 text-white shadow-lg' 
+          : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-amber-600 hover:text-amber-600'
+      }`}
+    >
+      Coffee Beans 
+    </Link>
 </div>
       </div>
 
